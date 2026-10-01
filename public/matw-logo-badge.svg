@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="matwBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00A3E0" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="matwCrimsonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2D6C" />
+      <stop offset="100%" stop-color="#E11D48" />
+    </linearGradient>
+  </defs>
+  <!-- Outer circle border -->
+  <circle cx="100" cy="100" r="95" fill="#0C2340" stroke="url(#matwBlueGrad)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#FFFFFF" stroke-dasharray="3 3" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Text Ring: MATW PROJECT -->
+  <path id="textCircle" d="M 30,100 A 70,70 0 1,1 170,100" fill="none"/>
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="900" fill="#FFFFFF" letter-spacing="3.5">
+    <textPath href="#textCircle" startOffset="50%" text-anchor="middle">
+      MATW-PROJECT
+    </textPath>
+  </text>
+  
+  <!-- Globe in Center -->
+  <circle cx="100" cy="94" r="32" fill="#0284C7" opacity="0.25"/>
+  <circle cx="100" cy="94" r="30" stroke="#38BDF8" stroke-width="2" fill="#08182D"/>
+  
+  <!-- Globe Grid lines -->
+  <ellipse cx="100" cy="94" rx="16" ry="30" stroke="#38BDF8" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <line x1="70" y1="94" x2="130" y2="94" stroke="#38BDF8" stroke-width="1.5" opacity="0.7"/>
+  <line x1="75" y1="81" x2="125" y2="81" stroke="#38BDF8" stroke-width="1.2" opacity="0.6"/>
+  <line x1="75" y1="107" x2="125" y2="107" stroke="#38BDF8" stroke-width="1.2" opacity="0.6"/>
+  
+  <!-- Stylized Continents Outline -->
+  <path d="M 94,80 Q 98,84 104,82 Q 108,86 102,90 Q 95,92 90,88 Z" fill="#38BDF8" opacity="0.8"/>
+  <path d="M 98,96 Q 106,97 108,104 Q 103,112 96,108 Q 94,101 98,96 Z" fill="#38BDF8" opacity="0.8"/>
+  
+  <!-- Cradling Caring Hands -->
+  <!-- Left Hand -->
+  <path d="M 64,124 C 64,115 72,102 82,98 C 84,103 84,110 80,116 C 76,122 72,126 64,124 Z" fill="#FFFFFF"/>
+  <path d="M 70,132 C 73,122 84,112 92,110 C 93,115 90,121 86,126 C 81,131 75,134 70,132 Z" fill="#FFFFFF"/>
+  <path d="M 80,138 C 84,130 94,120 100,119 C 101,124 97,129 93,134 C 88,139 84,140 80,138 Z" fill="#FFFFFF"/>
+  
+  <!-- Right Hand -->
+  <path d="M 136,124 C 136,115 128,102 118,98 C 116,103 116,110 120,116 C 124,122 128,126 136,124 Z" fill="#FFFFFF"/>
+  <path d="M 130,132 C 127,122 116,112 108,110 C 107,115 110,121 114,126 C 119,131 125,134 130,132 Z" fill="#FFFFFF"/>
+  <path d="M 120,138 C 116,130 106,120 100,119 C 99,124 103,129 107,134 C 112,139 116,140 120,138 Z" fill="#FFFFFF"/>
+  
+  <!-- Subtitle bottom arc: Muslims Around The World Project -->
+  <path id="bottomTextCircle" d="M 170,112 A 74,74 0 0,1 30,112" fill="none"/>
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="700" fill="#38BDF8" letter-spacing="1.5">
+    <textPath href="#bottomTextCircle" startOffset="50%" text-anchor="middle">
+      MUSLIMS AROUND THE WORLD PROJECT
+    </textPath>
+  </text>
+  
+  <!-- Accent Spark / Heart at bottom -->
+  <circle cx="100" cy="172" r="3.5" fill="#E11D48"/>
+</svg>
