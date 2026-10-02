@@ -120,9 +120,9 @@ export const Home: React.FC = () => {
 
             <button 
               onClick={() => setActiveTab('feed')}
-              className="text-xs font-bold text-sky-700 hover:text-sky-800 whitespace-nowrap ml-2 hidden sm:inline-block"
+              className="text-xs font-semibold text-sky-700 hover:text-sky-800 whitespace-nowrap ml-2 hidden sm:inline-block"
             >
-              Feed Settings →
+              Feed settings
             </button>
           </div>
 
@@ -149,9 +149,9 @@ export const Home: React.FC = () => {
           <div className="text-center pt-2">
             <button
               onClick={() => setActiveTab('feed')}
-              className="px-6 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs shadow-xs transition-colors"
+              className="px-6 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors"
             >
-              View Full Social Network Feed ({posts.length} Posts)
+              View all {posts.length} posts
             </button>
           </div>
 

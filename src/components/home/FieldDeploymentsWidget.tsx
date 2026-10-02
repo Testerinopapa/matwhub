@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ACTIVE_FIELD_DEPLOYMENTS } from '../../data/mockData';
 import { useApp } from '../../context/AppContext';
-import { Globe, ShieldAlert, ArrowRight, Radio, Compass, MapPin } from 'lucide-react';
+import { Globe, Radio } from 'lucide-react';
 
 export const FieldDeploymentsWidget: React.FC = () => {
   const { setActiveTab } = useApp();
@@ -18,31 +18,28 @@ export const FieldDeploymentsWidget: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden transition-all hover:shadow-md">
+    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden">
       
-      {/* Header with Live Mission Radar styling */}
-      <div className="p-4 bg-gradient-to-r from-emerald-950 via-slate-900 to-[#0C2340] text-white flex items-center justify-between">
+      {/* Header */}
+      <div className="p-4 bg-[#0C2340] text-white flex items-center justify-between">
         <div className="flex items-center space-x-2.5">
-          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
+          <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-emerald-400">
             <Radio className="w-4 h-4 animate-pulse" />
           </div>
           <div>
-            <div className="flex items-center space-x-1.5">
-              <h3 className="font-extrabold text-xs uppercase tracking-wider text-white">
-                Live Field Radar & Missions
-              </h3>
-            </div>
-            <span className="text-[10px] text-emerald-300 font-mono font-medium">
-              {utcTime || 'UTC Live'} • 24 Countries Active
+            <h3 className="font-bold text-xs text-white">
+              Active field stations
+            </h3>
+            <span className="text-[11px] text-slate-300">
+              {utcTime || 'UTC live'} Across 24 countries
             </span>
           </div>
         </div>
         <button
           onClick={() => setActiveTab('impact')}
-          className="text-xs font-bold text-emerald-300 hover:text-white flex items-center space-x-0.5 group"
+          className="text-xs font-semibold text-emerald-300 hover:text-white transition-colors"
         >
-          <span>Map</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          View field map
         </button>
       </div>
 
@@ -53,36 +50,37 @@ export const FieldDeploymentsWidget: React.FC = () => {
             <div 
               key={idx}
               onClick={() => setActiveTab('impact')}
-              className="p-2.5 rounded-xl border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-all cursor-pointer group"
+              className="p-2.5 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50 transition-all cursor-pointer flex items-center justify-between"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2 min-w-0">
-                  <span className={`w-2.5 h-2.5 rounded-full ${item.badgeColor} animate-pulse flex-shrink-0`}></span>
-                  <span className="text-xs font-extrabold text-slate-800 group-hover:text-emerald-700 transition-colors truncate">
+              <div className="min-w-0">
+                <div className="flex items-center space-x-2">
+                  <span className={`w-2 h-2 rounded-full ${item.badgeColor}`} />
+                  <span className="text-xs font-bold text-slate-800 truncate">
                     {item.country}
                   </span>
+                  <span className="text-[11px] text-slate-500">
+                    {item.teams} teams
+                  </span>
                 </div>
-                <span className="text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md font-mono flex-shrink-0">
-                  {item.teams} Teams
-                </span>
+                <p className="text-[11px] text-slate-500 truncate pl-4 mt-0.5">
+                  {item.focus}
+                </p>
               </div>
-              <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 pl-4.5">
-                <span className="truncate">{item.focus}</span>
-                <span className="font-semibold text-emerald-700 font-mono ml-2 whitespace-nowrap bg-emerald-50 px-1.5 py-0.5 rounded">
-                  {item.status}
-                </span>
-              </div>
+
+              <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md flex-shrink-0 ml-2">
+                {item.status}
+              </span>
             </div>
           ))}
         </div>
 
-        {/* Global mission summary pill */}
-        <div className="p-3 bg-gradient-to-r from-emerald-50 to-slate-50 border border-emerald-200/80 rounded-xl text-xs flex items-center justify-between text-slate-800">
+        {/* Global mission summary */}
+        <div className="p-3 bg-slate-50 border border-slate-200/80 rounded-xl text-xs flex items-center justify-between text-slate-700">
           <div className="flex items-center space-x-2">
             <Globe className="w-4 h-4 text-emerald-600" />
-            <span className="font-semibold text-[11px]">Active Deployments Worldwide:</span>
+            <span className="font-medium text-slate-600">Active missions worldwide:</span>
           </div>
-          <span className="font-black text-emerald-700 font-mono text-xs">142 Missions</span>
+          <span className="font-bold text-slate-900 text-xs">142 projects</span>
         </div>
       </div>
     </div>
