@@ -19,6 +19,7 @@ import {
   MOCK_IMPACT_METRICS, 
   MOCK_NOTIFICATIONS 
 } from '../data/mockData';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 interface AppContextType {
   currentUser: UserProfile;
@@ -57,6 +58,24 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+// Helper for local storage persistence
+const getStoredState = <T,>(key: string, fallback: T): T => {
+  try {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : fallback;
+  } catch (e) {
+    return fallback;
+  }
+};
+
+const setStoredState = <T,>(key: string, value: T) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    // Ignore storage quota or disabled errors
+  }
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentRole, setCurrentRoleState] = useState<UserRole>('ADMIN');
   const [currentUser, setCurrentUser] = useState<UserProfile>({
@@ -64,15 +83,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     role: 'ADMIN',
   });
   const [activeTab, setActiveTab] = useState<NavigationTab>('home');
-  const [posts, setPosts] = useState<Post[]>(MOCK_POSTS);
-  const [events, setEvents] = useState<EventItem[]>(MOCK_EVENTS);
-  const [resources, setResources] = useState<ResourceItem[]>(MOCK_RESOURCES);
-  const [impactMetrics, setImpactMetrics] = useState<ImpactMetric[]>(MOCK_IMPACT_METRICS);
-  const [notifications, setNotifications] = useState<AppNotification[]>(MOCK_NOTIFICATIONS);
+
+  // Hydrate state with localStorage fallback
+  const [posts, setPosts] = useState<Post[]>(() => getStoredState('matw_posts', MOCK_POSTS));
+  const [events, setEvents] = useState<EventItem[]>(() => getStoredState('matw_events', MOCK_EVENTS));
+  const [resources, setResources] = useState<ResourceItem[]>(() => getStoredState('matw_resources', MOCK_RESOURCES));
+  const [impactMetrics, setImpactMetrics] = useState<ImpactMetric[]>(() => getStoredState('matw_impact_metrics', MOCK_IMPACT_METRICS));
+  const [notifications, setNotifications] = useState<AppNotification[]>(() => getStoredState('matw_notifications', MOCK_NOTIFICATIONS));
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isRecogniseModalOpen, setIsRecogniseModalOpen] = useState(false);
+
+  // Sync to localStorage
+  useEffect(() => { setStoredState('matw_posts', posts); }, [posts]);
+  useEffect(() => { setStoredState('matw_events', events); }, [events]);
+  useEffect(() => { setStoredState('matw_resources', resources); }, [resources]);
+  useEffect(() => { setStoredState('matw_impact_metrics', impactMetrics); }, [impactMetrics]);
+  useEffect(() => { setStoredState('matw_notifications', notifications); }, [notifications]);
 
   // Sync role changes
   const setCurrentRole = (role: UserRole) => {
@@ -81,6 +110,43 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const unreadNotificationsCount = notifications.filter(n => !n.is_read).length;
+
+  // Supabase background sync on initial load
+  useEffect(() => {
+    if (!isSupabaseConfigured()) return;
+
+    const loadRemoteData = async () => {
+      try {
+        // Fetch remote impact metrics if table exists
+        const { data: remoteMetrics, error: metricsErr } = await supabase
+          .from('impact_metrics')
+          .select('*')
+          .order('sort_order', { ascending: true });
+
+        if (!metricsErr && remoteMetrics && remoteMetrics.length > 0) {
+          setImpactMetrics(prev => {
+            const mapped: ImpactMetric[] = remoteMetrics.map((rm: any) => ({
+              id: rm.id,
+              key: rm.metric_key || rm.id,
+              label: rm.label,
+              value: rm.value,
+              numeric_value: Number(rm.numeric_value),
+              icon_name: rm.icon_name || 'Heart',
+              category: rm.category,
+              period_description: rm.period || 'Lifetime',
+              updated_at: rm.updated_at || new Date().toISOString()
+            }));
+            return mapped;
+          });
+        }
+      } catch (err) {
+        // Graceful fallback to mock data / local cache
+        console.info('Supabase syncing initialized with local cache fallback.');
+      }
+    };
+
+    loadRemoteData();
+  }, []);
 
   const toggleReaction = (postId: string, type: 'heart' | 'clap' | 'prayer' | 'fire') => {
     setPosts(prev => prev.map(p => {
@@ -186,10 +252,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       recognition_details: newPostData.recognition_details,
     };
     setPosts(prev => [post, ...prev]);
+
+    // Async attempt to persist to Lovable Cloud if configured
+    if (isSupabaseConfigured()) {
+      (async () => {
+        try {
+          await supabase.from('posts').insert({
+            type: post.type,
+            title: post.title,
+            body: post.body,
+            excerpt: post.excerpt,
+            image_url: post.cover_image,
+            category: post.category,
+            featured: post.featured,
+            pinned: post.pinned,
+          });
+        } catch (e) {
+          // Fallback to local storage
+        }
+      })();
+    }
   };
 
   const deletePost = (postId: string) => {
     setPosts(prev => prev.filter(p => p.id !== postId));
+    if (isSupabaseConfigured()) {
+      (async () => {
+        try {
+          await supabase.from('posts').delete().eq('id', postId);
+        } catch (e) {
+          // Fallback to local storage
+        }
+      })();
+    }
   };
 
   const recogniseColleague = (recipientId: string, message: string, badgeTitle: string, achievement: string) => {
@@ -234,6 +329,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updated_at: new Date().toISOString()
       };
     }));
+
+    if (isSupabaseConfigured()) {
+      (async () => {
+        try {
+          await supabase.from('impact_metrics').update({
+            value: newValue,
+            numeric_value: newNumeric,
+            updated_at: new Date().toISOString()
+          }).eq('id', metricId);
+        } catch (e) {
+          // Fallback to local storage
+        }
+      })();
+    }
   };
 
   const addResource = (newRes: Partial<ResourceItem>) => {

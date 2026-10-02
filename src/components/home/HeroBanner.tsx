@@ -1,15 +1,16 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
-  Heart, 
   ArrowRight, 
   MapPin, 
   Sparkles, 
-  ShieldCheck, 
   Calendar, 
+  AlertCircle,
   Clock,
   Compass,
-  AlertCircle
+  CheckCircle2,
+  TrendingUp,
+  Truck
 } from 'lucide-react';
 
 export const HeroBanner: React.FC = () => {
@@ -23,63 +24,55 @@ export const HeroBanner: React.FC = () => {
   });
 
   return (
-    <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 bg-[#0C2340] text-white">
-      {/* Background Graphic / Field Photo with Gradient Overlays */}
-      <div className="absolute inset-0">
-        <img 
-          src="/images/matw/admin-image-1765282578391.jpeg" 
-          alt="MATW Gaza Emergency Response" 
-          className="w-full h-full object-cover object-top opacity-30 transform scale-105 filter blur-[0.5px]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0C2340] via-[#0C2340]/90 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0C2340] via-transparent to-transparent" />
-      </div>
+    <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-[#0C2340] text-white">
+      {/* Background subtle radial glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 p-6 sm:p-8 lg:p-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column: Personalized Greeting & Campaign Spotlight */}
-          <div className="lg:col-span-8 space-y-4">
+          {/* Left Column: Mission Narrative & Personalized Action */}
+          <div className="lg:col-span-7 space-y-4">
             
-            {/* Top Badges & Greeting */}
+            {/* Greeting & Date Bar */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center space-x-1.5 bg-rose-600/90 text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm border border-rose-400/30">
+              <span className="inline-flex items-center space-x-1.5 bg-rose-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm border border-rose-400/40">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
-                <span>Active Campaign Spotlight</span>
+                <span>Urgent Winter Appeal</span>
               </span>
-              <span className="inline-flex items-center space-x-1 text-sky-300 text-xs font-semibold bg-sky-950/60 border border-sky-500/30 px-2.5 py-1 rounded-full">
+              <span className="inline-flex items-center space-x-1 text-sky-200 text-xs font-semibold bg-sky-950/60 border border-sky-500/30 px-2.5 py-1 rounded-full">
                 <Calendar className="w-3 h-3 text-sky-400" />
                 <span>{todayDate}</span>
               </span>
-              <span className="text-amber-300 text-xs font-medium hidden sm:inline-flex items-center space-x-1">
-                <span>✦</span>
-                <span>"The most beloved people to Allah are those who bring benefit to others."</span>
+              <span className="text-amber-300 text-xs font-medium hidden sm:inline">
+                Assalamu Alaikum, {currentUser.name.split(' ')[0]} 👋
               </span>
             </div>
 
-            {/* Headline */}
+            {/* Editorial Headline with Handwritten Accent */}
             <div>
-              <p className="text-xs text-rose-200 font-semibold uppercase tracking-wider">
-                Assalamu Alaikum, {currentUser.name.split(' ')[0]} 👋
+              <p className="font-handwritten text-2xl text-rose-300 font-bold leading-none -rotate-1 mb-1">
+                Winter Won't Wait in Gaza
               </p>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white mt-1 leading-tight">
-                Winter Won’t Wait in Gaza: <br />
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
+                Logistics Corridor Phase 4: <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-sky-300 to-amber-200">
-                  Phase 4 Corridor Crossing Underway
+                  28,450 Thermal Kits Crossing Live
                 </span>
               </h1>
             </div>
 
-            {/* Campaign Summary & Mission Stat */}
-            <p className="text-slate-200 text-xs sm:text-sm max-w-2xl leading-relaxed">
-              Our regional emergency dispatch teams in Amman and Rafah have cleared 28,000 thermal blankets, reinforced winter family tents, and essential food parcels into Deir al-Balah. Through your collective daily dedication, our 100% donation guarantee delivers warmth and dignity to families in crisis.
+            {/* Body */}
+            <p className="text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xl">
+              Heavy waterproof family tents, thermal blankets, and high-nutrition baby parcels have crossed the regional transit hub into Khan Younis and Deir al-Balah. Through your collective dedication, our 100% donation covenant delivers immediate shelter before sub-zero winter storms peak.
             </p>
 
-            {/* Quick CTAs */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            {/* Quick Actions */}
+            <div className="pt-2 flex flex-wrap items-center gap-2.5">
               <button
                 onClick={() => setActiveTab('feed')}
-                className="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-rose-900/30 transition-all flex items-center space-x-2 transform hover:-translate-y-0.5"
+                className="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-rose-900/40 transition-all flex items-center space-x-2 transform hover:-translate-y-0.5"
               >
                 <span>Read Field Dispatch</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -90,7 +83,7 @@ export const HeroBanner: React.FC = () => {
                 className="bg-white/10 hover:bg-white/20 text-white font-semibold text-xs px-4 py-2.5 rounded-xl backdrop-blur-sm border border-white/20 transition-all flex items-center space-x-2"
               >
                 <Compass className="w-3.5 h-3.5 text-sky-400" />
-                <span>Explore Global Impact Hub</span>
+                <span>Impact Map</span>
               </button>
 
               <button
@@ -98,54 +91,51 @@ export const HeroBanner: React.FC = () => {
                 className="bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 font-semibold text-xs px-3.5 py-2.5 rounded-xl border border-amber-400/30 transition-all flex items-center space-x-1.5"
               >
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span>Give Team Kudos</span>
+                <span>Kudos Frontline Team</span>
               </button>
             </div>
 
           </div>
 
-          {/* Right Column: Hero Real-Time Metric Glass Card */}
-          <div className="lg:col-span-4">
-            <div className="bg-slate-900/75 backdrop-blur-md rounded-2xl p-5 border border-slate-700/70 shadow-2xl space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-700/60 pb-3">
-                <div className="flex items-center space-x-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                    Live Relief Corridor
+          {/* Right Column: Prominent High-Res Authentic Field Photography + Live Stats Card */}
+          <div className="lg:col-span-5 space-y-3">
+            <div className="rounded-2xl overflow-hidden border-2 border-slate-700/80 shadow-2xl relative group">
+              <img 
+                src="/images/matw/admin-image-1732026823446.jpeg" 
+                alt="MATW Gaza Aid Workers Delivering Relief" 
+                className="w-full h-56 object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-4">
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className="bg-rose-600/90 text-white font-black text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full flex items-center space-x-1">
+                    <MapPin className="w-2.5 h-2.5" />
+                    <span>Deir al-Balah Sector</span>
+                  </span>
+                  <span className="text-emerald-400 font-mono font-bold text-[10px] flex items-center space-x-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Verified Real-Time Dispatch</span>
                   </span>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-mono font-semibold">ONLINE 24/7</span>
+                <p className="text-xs text-white font-bold leading-snug">
+                  Field workers in MATW vests delivering emergency food & shelter parcels through disaster routes.
+                </p>
               </div>
+            </div>
 
-              <div className="space-y-3">
-                <div>
-                  <span className="text-[11px] text-slate-400">Phase 4 Target Progress</span>
-                  <div className="flex items-end justify-between mt-1">
-                    <span className="text-2xl font-black text-white font-mono">28,450 / 35,000</span>
-                    <span className="text-xs font-bold text-sky-400">81% Complete</span>
-                  </div>
-                  <div className="w-full h-2 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-sky-400 via-rose-500 to-amber-400 rounded-full" style={{ width: '81%' }} />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-xs">
-                  <div className="bg-slate-800/60 p-2.5 rounded-xl">
-                    <span className="text-[10px] text-slate-400 block">Active Convoys</span>
-                    <span className="font-extrabold text-white text-base">42 Trucks</span>
-                  </div>
-                  <div className="bg-slate-800/60 p-2.5 rounded-xl">
-                    <span className="text-[10px] text-slate-400 block">Volunteers on Ground</span>
-                    <span className="font-extrabold text-emerald-400 text-base">310+ Staff</span>
-                  </div>
-                </div>
-
-                <div className="p-2.5 bg-rose-950/40 border border-rose-900/60 rounded-xl flex items-center space-x-2.5">
-                  <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
-                  <p className="text-[11px] text-rose-200 leading-snug">
-                    Weather alert: Temperatures dropping to 4°C tonight across Northern Gaza shelters.
-                  </p>
-                </div>
+            {/* Live Progress Bar Pill */}
+            <div className="bg-slate-900/80 backdrop-blur-md p-3.5 rounded-2xl border border-slate-700/80 shadow-md">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-slate-300 font-semibold flex items-center space-x-1.5">
+                  <Truck className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Phase 4 Winter Target: <strong>28,450 / 35,000</strong></span>
+                </span>
+                <span className="text-amber-400 font-mono font-black text-xs">81% Complete</span>
+              </div>
+              <div className="w-full h-2 bg-slate-800 rounded-full mt-2 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-sky-400 via-rose-500 to-amber-400 rounded-full transition-all duration-700" 
+                  style={{ width: '81%' }} 
+                />
               </div>
             </div>
           </div>

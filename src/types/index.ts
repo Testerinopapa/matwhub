@@ -9,6 +9,7 @@ export interface UserProfile {
   job_title: string;
   department: string;
   location: string;
+  country?: string;
   phone?: string;
   bio?: string;
   joined_date?: string;
