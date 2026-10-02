@@ -84,24 +84,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
   const [activeTab, setActiveTab] = useState<NavigationTab>('home');
 
-  // Hydrate state with localStorage fallback
-  const [posts, setPosts] = useState<Post[]>(() => getStoredState('matw_posts', MOCK_POSTS));
-  const [events, setEvents] = useState<EventItem[]>(() => getStoredState('matw_events', MOCK_EVENTS));
-  const [resources, setResources] = useState<ResourceItem[]>(() => getStoredState('matw_resources', MOCK_RESOURCES));
-  const [impactMetrics, setImpactMetrics] = useState<ImpactMetric[]>(() => getStoredState('matw_impact_metrics', MOCK_IMPACT_METRICS));
-  const [notifications, setNotifications] = useState<AppNotification[]>(() => getStoredState('matw_notifications', MOCK_NOTIFICATIONS));
+  // Hydrate state with versioned storage keys (busts stale cache with old Unsplash assets)
+  const [posts, setPosts] = useState<Post[]>(() => getStoredState('matw_v3_posts', MOCK_POSTS));
+  const [events, setEvents] = useState<EventItem[]>(() => getStoredState('matw_v3_events', MOCK_EVENTS));
+  const [resources, setResources] = useState<ResourceItem[]>(() => getStoredState('matw_v3_resources', MOCK_RESOURCES));
+  const [impactMetrics, setImpactMetrics] = useState<ImpactMetric[]>(() => getStoredState('matw_v3_impact_metrics', MOCK_IMPACT_METRICS));
+  const [notifications, setNotifications] = useState<AppNotification[]>(() => getStoredState('matw_v3_notifications', MOCK_NOTIFICATIONS));
   
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isRecogniseModalOpen, setIsRecogniseModalOpen] = useState(false);
 
-  // Sync to localStorage
-  useEffect(() => { setStoredState('matw_posts', posts); }, [posts]);
-  useEffect(() => { setStoredState('matw_events', events); }, [events]);
-  useEffect(() => { setStoredState('matw_resources', resources); }, [resources]);
-  useEffect(() => { setStoredState('matw_impact_metrics', impactMetrics); }, [impactMetrics]);
-  useEffect(() => { setStoredState('matw_notifications', notifications); }, [notifications]);
+  // Sync to versioned localStorage
+  useEffect(() => { setStoredState('matw_v3_posts', posts); }, [posts]);
+  useEffect(() => { setStoredState('matw_v3_events', events); }, [events]);
+  useEffect(() => { setStoredState('matw_v3_resources', resources); }, [resources]);
+  useEffect(() => { setStoredState('matw_v3_impact_metrics', impactMetrics); }, [impactMetrics]);
+  useEffect(() => { setStoredState('matw_v3_notifications', notifications); }, [notifications]);
 
   // Sync role changes
   const setCurrentRole = (role: UserRole) => {
