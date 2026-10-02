@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { HeroBanner } from '../components/home/HeroBanner';
 import { ImpactStatsBar } from '../components/home/ImpactStatsBar';
-import { UpcomingEventsWidget } from '../components/home/UpcomingEventsWidget';
-import { LeadershipWidget } from '../components/home/LeadershipWidget';
-import { QuickToolkitWidget } from '../components/home/QuickToolkitWidget';
-import { RecognitionWidget } from '../components/home/RecognitionWidget';
-import { FieldDeploymentsWidget } from '../components/home/FieldDeploymentsWidget';
+import { OperationsHub } from '../components/home/OperationsHub';
 import { PostCard } from '../components/feed/PostCard';
 import { PostType } from '../types';
 import { 
@@ -157,24 +153,9 @@ export const Home: React.FC = () => {
 
         </div>
 
-        {/* Right Column: Mission Utility & Engagement Rail (5 Cols) */}
-        <div className="lg:col-span-5 space-y-6">
-          
-          {/* Upcoming Events & Town Halls */}
-          <UpcomingEventsWidget />
-
-          {/* Colleague Recognition Showcase */}
-          <RecognitionWidget />
-
-          {/* Founder Ali Banat Legacy & CEO Reflection */}
-          <LeadershipWidget />
-
-          {/* Live Active Field Bureaus & Stations */}
-          <FieldDeploymentsWidget />
-
-          {/* Quick Resource & Brand Toolkit */}
-          <QuickToolkitWidget />
-
+        {/* Right Column: Unified Operations Command Hub (5 Cols) */}
+        <div className="lg:col-span-5">
+          <OperationsHub />
         </div>
 
       </div>
