@@ -74,7 +74,7 @@ export const Resources: React.FC = () => {
     <div className="space-y-8 max-w-6xl mx-auto animate-in fade-in duration-200">
       
       {/* Top Banner */}
-      <div className="bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="page-hero-panel page-hero-panel--resources bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
@@ -97,8 +97,28 @@ export const Resources: React.FC = () => {
         </button>
       </div>
 
+      {/* Asset constellation */}
+      <section className="resource-constellation" aria-labelledby="resource-constellation-title">
+        <div className="resource-constellation__copy">
+          <span className="resource-constellation__eyebrow">Library signal / curated for you</span>
+          <h2 id="resource-constellation-title">Everything the team needs, in orbit.</h2>
+          <p>Move from brand idea to field-ready delivery with the files, standards, and safety knowledge behind every mission.</p>
+          <div className="resource-constellation__tags">
+            <span>Brand</span><span>Safety</span><span>People</span><span>Field</span>
+          </div>
+        </div>
+        <div className="resource-constellation__stage" aria-hidden="true">
+          <span className="resource-constellation__halo resource-constellation__halo--one" />
+          <span className="resource-constellation__halo resource-constellation__halo--two" />
+          <span className="resource-constellation__core"><strong>{resources.length}</strong><small>verified assets</small></span>
+          <span className="resource-constellation__file resource-constellation__file--one">SVG / Logos</span>
+          <span className="resource-constellation__file resource-constellation__file--two">PDF / Policies</span>
+          <span className="resource-constellation__file resource-constellation__file--three">ZIP / Campaign kit</span>
+        </div>
+      </section>
+
       {/* Main Dual Category Tabs */}
-      <div className="flex items-center space-x-3 border-b border-slate-200 pb-3">
+      <div className="page-tabs flex items-center space-x-3 border-b border-slate-200 pb-3">
         <button
           onClick={() => {
             setActiveCategory('brand');
@@ -131,7 +151,7 @@ export const Resources: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3">
+      <div className="page-panel page-panel--controls bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           
           {/* Subcategory Pills */}
@@ -171,7 +191,7 @@ export const Resources: React.FC = () => {
         {filteredResources.map(res => (
           <div
             key={res.id}
-            className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group relative"
+            className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200 p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group relative"
           >
             <div>
               <div className="flex items-start justify-between">

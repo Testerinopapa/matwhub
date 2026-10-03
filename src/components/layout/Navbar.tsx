@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { NavigationTab, UserRole } from '../../types';
 import { 
@@ -20,7 +20,9 @@ import {
   Calendar,
   Compass,
   Home,
-  MessageSquare
+  MessageSquare,
+  Users,
+  type LucideIcon
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -45,19 +47,34 @@ export const Navbar: React.FC = () => {
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const [isCreateDropdownOpen, setIsCreateDropdownOpen] = useState(false);
 
-  const navItems: { id: NavigationTab; label: string; badge?: string }[] = [
-    { id: 'home', label: 'Home' },
-    { id: 'feed', label: 'Feed' },
-    { id: 'impact', label: 'Impact', badge: '59M+' },
-    { id: 'news', label: 'News' },
-    { id: 'events', label: 'Events' },
-    { id: 'resources', label: 'Resources' },
-    { id: 'recognition', label: 'Recognition' },
-    { id: 'leadership', label: 'Leadership' },
+  // Keep the responsive navigation state in sync with the viewport. This matters
+  // when the browser is resized or zoom is changed while the drawer is open: a
+  // desktop-width layout should never leave the compact drawer covering the page.
+  useEffect(() => {
+    const syncResponsiveMenus = () => {
+      if (window.innerWidth >= 1536) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    syncResponsiveMenus();
+    window.addEventListener('resize', syncResponsiveMenus);
+    return () => window.removeEventListener('resize', syncResponsiveMenus);
+  }, []);
+
+  const navItems: { id: NavigationTab; label: string; description: string; icon: LucideIcon; badge?: string }[] = [
+    { id: 'home', label: 'Home', description: 'Live mission dispatch', icon: Home },
+    { id: 'feed', label: 'Feed', description: 'One team, in motion', icon: MessageSquare },
+    { id: 'impact', label: 'Impact', description: 'See the reach unfold', icon: Compass, badge: '59M+' },
+    { id: 'news', label: 'News', description: 'Stories from the field', icon: FileText },
+    { id: 'events', label: 'Events', description: 'Gatherings and briefings', icon: Calendar },
+    { id: 'resources', label: 'Resources', description: 'Tools for the work', icon: Briefcase },
+    { id: 'recognition', label: 'Recognition', description: 'Celebrate the team', icon: Award },
+    { id: 'leadership', label: 'Leadership', description: 'Direction and legacy', icon: Users },
   ];
 
   if (currentRole === 'ADMIN' || currentRole === 'CONTENT_EDITOR') {
-    navItems.push({ id: 'admin', label: 'Admin', badge: currentRole === 'ADMIN' ? 'CMS' : 'Editor' });
+    navItems.push({ id: 'admin', label: 'Admin', description: 'Manage the hub', icon: ShieldCheck, badge: currentRole === 'ADMIN' ? 'CMS' : 'Editor' });
   }
 
   const handleNavClick = (tab: NavigationTab) => {
@@ -68,11 +85,11 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-[#0C2340] border-b border-[#1b3a63] text-white shadow-lg select-none">
+      <header className="apple-navbar relative sticky top-0 z-50 border-b text-white shadow-lg select-none">
         {/* Top Emergency Mission & Transparency Ticker */}
-        <div className="bg-gradient-to-r from-rose-950 via-rose-900 to-[#0C2340] px-4 py-1.5 text-xs text-rose-100 flex items-center border-b border-rose-950/40">
-          <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+        <div className="nav-ticker overflow-hidden bg-gradient-to-r from-rose-950 via-rose-900 to-[#0C2340] px-4 py-1.5 text-xs text-rose-100 flex items-center border-b border-rose-950/40">
+          <div className="max-w-[96rem] mx-auto w-full flex items-center justify-between min-w-0">
+            <div className="flex min-w-0 flex-1 items-center space-x-2">
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
@@ -98,30 +115,30 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Main Navigation Bar */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="apple-navbar-main max-w-[96rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             
             {/* MATW Brand Identity & Home Link */}
             <div 
-              className="flex items-center space-x-3 cursor-pointer group" 
+              className="flex flex-shrink-0 items-center space-x-3 cursor-pointer group"
               onClick={() => handleNavClick('home')}
             >
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <img 
                   src="/matw-logo-badge.svg" 
                   alt="MATW Project" 
-                  className="w-10 h-10 rounded-full border-2 border-sky-400 shadow-md group-hover:scale-105 transition-transform" 
+                  className="h-10 w-10 flex-shrink-0 rounded-full border-2 border-sky-400 shadow-md group-hover:scale-105 transition-transform"
                 />
                 <span className="absolute -bottom-1 -right-1 bg-rose-600 text-[8px] font-black px-1 rounded-full text-white uppercase tracking-tighter ring-1 ring-[#0C2340]">
                   HUB
                 </span>
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center space-x-1.5">
                   <span className="font-black text-lg tracking-tight text-white group-hover:text-sky-300 transition-colors">
                     MATW
                   </span>
-                  <span className="text-[10px] bg-sky-500/20 text-sky-300 px-1.5 py-0.5 rounded font-extrabold border border-sky-400/30 uppercase tracking-wider">
+                  <span className="whitespace-nowrap text-[10px] bg-sky-500/20 text-sky-300 px-1.5 py-0.5 rounded font-extrabold border border-sky-400/30 uppercase tracking-wider">
                     ONE TEAM
                   </span>
                 </div>
@@ -132,7 +149,7 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            <nav className="hidden 2xl:flex items-center space-x-1">
               {navItems.map((item) => {
                 const isActive = activeTab === item.id;
                 return (
@@ -186,7 +203,7 @@ export const Navbar: React.FC = () => {
               </button>
 
               {/* Consolidated CampaignBay "+ Create" Action Menu */}
-              <div className="relative">
+              <div className="nav-create-action relative">
                 <button
                   onClick={() => setIsCreateDropdownOpen(!isCreateDropdownOpen)}
                   className="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1.5 shadow-sm"
@@ -337,7 +354,7 @@ export const Navbar: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsRoleDropdownOpen(!isRoleDropdownOpen)}
-                  className="hidden xl:flex items-center space-x-1.5 bg-slate-900/80 border border-slate-700/80 text-[11px] font-bold px-2 py-1 rounded-md text-amber-300 hover:bg-slate-800 transition-colors"
+                  className="hidden 2xl:flex items-center space-x-1.5 bg-slate-900/80 border border-slate-700/80 text-[11px] font-bold px-2 py-1 rounded-md text-amber-300 hover:bg-slate-800 transition-colors"
                   title="Switch Role Preview"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
@@ -370,19 +387,19 @@ export const Navbar: React.FC = () => {
               </div>
 
               {/* User Avatar & Profile Menu */}
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <button
                   onClick={() => {
                     setIsProfileMenuOpen(!isProfileMenuOpen);
                     setIsNotificationsOpen(false);
                     setIsCreateDropdownOpen(false);
                   }}
-                  className="flex items-center space-x-2 p-0.5 rounded-full hover:ring-2 hover:ring-sky-400 transition-all focus:outline-none"
+                  className="flex flex-shrink-0 items-center space-x-2 p-0.5 rounded-full hover:ring-2 hover:ring-sky-400 transition-all focus:outline-none"
                 >
                   <img
                     src={currentUser.avatar}
                     alt={currentUser.name}
-                    className="w-8 h-8 rounded-full object-cover border-2 border-sky-400 shadow-sm"
+                    className="h-8 w-8 flex-shrink-0 rounded-full object-cover border-2 border-sky-400 shadow-sm"
                   />
                 </button>
 
@@ -475,7 +492,10 @@ export const Navbar: React.FC = () => {
               {/* Mobile Drawer Trigger */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg"
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="pages-navigation-drawer"
+                aria-label={isMobileMenuOpen ? 'Close pages navigation' : 'Open pages navigation'}
+                className="2xl:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg"
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -485,29 +505,51 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Slide-down Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-[#0A1D34] border-t border-slate-800 px-4 pt-3 pb-5 space-y-3 animate-in fade-in duration-200">
-            <div className="grid grid-cols-2 gap-2">
-              {navItems.map((item) => {
+          <div id="pages-navigation-drawer" className="apple-mobile-drawer 2xl:hidden absolute left-0 right-0 top-full animate-in fade-in duration-200" role="dialog" aria-label="Pages navigation">
+            <div className="apple-mobile-drawer__intro">
+              <div>
+                <span className="apple-mobile-drawer__eyebrow"><span /> One Team Hub / Pages</span>
+                <h2>Move through the mission.</h2>
+                <p>Choose a space for the next part of the work.</p>
+              </div>
+              <div className="apple-mobile-drawer__signal" aria-hidden="true">
+                <span className="apple-mobile-drawer__signal-ring" />
+                <span className="apple-mobile-drawer__signal-core" />
+                <div>
+                  <small>Live corridor</small>
+                  <strong>28,450</strong>
+                  <span>kits cleared</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="apple-mobile-drawer__grid">
+              {navItems.map((item, index) => {
                 const isActive = activeTab === item.id;
+                const Icon = item.icon;
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`px-3 py-2 text-xs font-bold rounded-xl text-left flex items-center justify-between ${
-                      isActive 
-                        ? 'bg-rose-600 text-white font-black' 
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white bg-slate-900/60'
-                    }`}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`apple-mobile-drawer__item ${isActive ? 'apple-mobile-drawer__item--active' : ''}`}
                   >
-                    <span>{item.label}</span>
-                    {item.badge && (
-                      <span className="text-[9px] bg-black/40 px-1.5 py-0.5 rounded-full font-bold">
-                        {item.badge}
-                      </span>
-                    )}
+                    <span className="apple-mobile-drawer__icon"><Icon className="h-4 w-4" /></span>
+                    <span className="apple-mobile-drawer__copy">
+                      <small>{String(index + 1).padStart(2, '0')}</small>
+                      <strong>{item.label}</strong>
+                      <span>{item.description}</span>
+                    </span>
+                    <span className="apple-mobile-drawer__arrow" aria-hidden="true">↗</span>
+                    {item.badge && <span className="apple-mobile-drawer__badge">{item.badge}</span>}
                   </button>
                 );
               })}
+            </div>
+
+            <div className="apple-mobile-drawer__footer">
+              <span><i /> Frontline systems active</span>
+              <span>Tap a page to continue</span>
             </div>
           </div>
         )}

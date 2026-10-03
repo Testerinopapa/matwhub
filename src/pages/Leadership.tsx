@@ -50,7 +50,7 @@ export const Leadership: React.FC = () => {
     <div className="space-y-10 max-w-6xl mx-auto animate-in fade-in duration-200">
       
       {/* Top Banner with Ali Banat Tribute */}
-      <div className="relative rounded-3xl overflow-hidden bg-[#0C2340] text-white border border-[#1b3a63] p-8 sm:p-12 shadow-2xl">
+      <div className="page-hero-panel page-hero-panel--leadership relative rounded-3xl overflow-hidden bg-[#0C2340] text-white border border-[#1b3a63] p-8 sm:p-12 shadow-2xl">
         <div className="absolute inset-0">
           <img 
             src="/images/matw/admin-image-1764514998420.jpeg" 
@@ -88,6 +88,24 @@ export const Leadership: React.FC = () => {
         </div>
       </div>
 
+      {/* Strategy compass */}
+      <section className="leadership-compass" aria-labelledby="leadership-compass-title">
+        <div className="leadership-compass__copy">
+          <span className="leadership-compass__eyebrow">The 2026 compass</span>
+          <h2 id="leadership-compass-title">A mission with four directions.</h2>
+          <p>Leadership is not a distant broadcast. It is the shared orientation behind every decision made in the field.</p>
+        </div>
+        <div className="leadership-compass__diagram" aria-hidden="true">
+          <span className="leadership-compass__cross leadership-compass__cross--horizontal" />
+          <span className="leadership-compass__cross leadership-compass__cross--vertical" />
+          <span className="leadership-compass__point leadership-compass__point--north">INTEGRITY<small>100% Zakat</small></span>
+          <span className="leadership-compass__point leadership-compass__point--east">SPEED<small>Under 24 hours</small></span>
+          <span className="leadership-compass__point leadership-compass__point--south">LEGACY<small>For decades</small></span>
+          <span className="leadership-compass__point leadership-compass__point--west">PEOPLE<small>Field safety</small></span>
+          <span className="leadership-compass__needle"><Compass className="h-5 w-5" /><strong>ONE TEAM</strong></span>
+        </div>
+      </section>
+
       {/* 2026 Strategic Priorities Grid */}
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
@@ -101,7 +119,7 @@ export const Leadership: React.FC = () => {
           {STRATEGIC_PRIORITIES.map((p, i) => (
             <div 
               key={i}
-              className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              className="page-panel page-panel--interactive bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">

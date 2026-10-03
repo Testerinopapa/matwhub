@@ -3,6 +3,8 @@ import { useApp } from '../context/AppContext';
 import { HeroBanner } from '../components/home/HeroBanner';
 import { ImpactStatsBar } from '../components/home/ImpactStatsBar';
 import { OperationsHub } from '../components/home/OperationsHub';
+import { UpcomingEventsWidget } from '../components/home/UpcomingEventsWidget';
+import { QuickToolkitWidget } from '../components/home/QuickToolkitWidget';
 import { PostCard } from '../components/feed/PostCard';
 import { PostType } from '../types';
 import { 
@@ -41,13 +43,13 @@ export const Home: React.FC = () => {
       <ImpactStatsBar />
 
       {/* 3. Main Multi-Column Experience */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid min-w-0 grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Column: Internal Social Feed & Composer (7 Cols) */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="min-w-0 lg:col-span-7 space-y-6">
           
           {/* Quick Post / Interaction Trigger Card */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm">
+          <div className="page-panel page-panel--controls bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm">
             <div className="flex items-center space-x-3">
               <img 
                 src={currentUser.avatar} 
@@ -92,7 +94,7 @@ export const Home: React.FC = () => {
 
           {/* Social Feed Filter Bar */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-1 sm:space-x-1.5 overflow-x-auto pb-1 max-w-full">
+            <div className="min-w-0 flex items-center space-x-1 overflow-x-auto pb-1 max-w-full sm:space-x-1.5">
               {[
                 { id: 'all', label: 'All Team Activity' },
                 { id: 'field', label: 'Field Dispatches' },
@@ -125,7 +127,7 @@ export const Home: React.FC = () => {
           {/* Post Feed List */}
           <div className="space-y-5">
             {filteredPosts.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-500">
+              <div className="page-panel bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-500">
                 <p className="text-sm font-semibold">No posts in this category yet.</p>
                 <button
                   onClick={() => setFeedFilter('all')}
@@ -154,8 +156,10 @@ export const Home: React.FC = () => {
         </div>
 
         {/* Right Column: Unified Operations Command Hub (5 Cols) */}
-        <div className="lg:col-span-5">
+        <div className="min-w-0 lg:col-span-5 space-y-6">
           <OperationsHub />
+          <UpcomingEventsWidget />
+          <QuickToolkitWidget />
         </div>
 
       </div>

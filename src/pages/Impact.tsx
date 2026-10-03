@@ -57,7 +57,7 @@ export const Impact: React.FC = () => {
     <div className="space-y-10 max-w-6xl mx-auto animate-in fade-in duration-200">
       
       {/* 1. Dramatic Editorial Hero */}
-      <div className="relative rounded-3xl overflow-hidden bg-[#0C2340] text-white border border-[#1b3a63] p-8 sm:p-12 shadow-2xl">
+      <div className="page-hero-panel page-hero-panel--impact relative rounded-3xl overflow-hidden bg-[#0C2340] text-white border border-[#1b3a63] p-8 sm:p-12 shadow-2xl">
         <div className="absolute inset-0">
           <img 
             src="/images/matw/admin-image-1731684275384.jpeg" 
@@ -95,6 +95,28 @@ export const Impact: React.FC = () => {
         </div>
       </div>
 
+      {/* Interactive impact atlas */}
+      <section className="impact-atlas" aria-labelledby="impact-atlas-title">
+        <div className="impact-atlas__copy">
+          <span className="impact-atlas__eyebrow">Live footprint / 24 countries</span>
+          <h2 id="impact-atlas-title">A connected map of care.</h2>
+          <p>Every programme is a point in a larger system: local teams, trusted partners, and donors moving in the same direction.</p>
+          <div className="impact-atlas__legend">
+            <span><i className="impact-atlas__legend-dot impact-atlas__legend-dot--active" /> Active corridor</span>
+            <span><i className="impact-atlas__legend-dot impact-atlas__legend-dot--water" /> Sustainable infrastructure</span>
+          </div>
+        </div>
+        <div className="impact-atlas__orbit" aria-hidden="true">
+          <span className="impact-atlas__orbit-line impact-atlas__orbit-line--one" />
+          <span className="impact-atlas__orbit-line impact-atlas__orbit-line--two" />
+          <span className="impact-atlas__orbit-line impact-atlas__orbit-line--three" />
+          <span className="impact-atlas__core"><strong>59.4M</strong><small>lives touched</small></span>
+          <span className="impact-atlas__node impact-atlas__node--gaza"><b>Gaza</b><small>28.4k kits</small></span>
+          <span className="impact-atlas__node impact-atlas__node--mali"><b>Mali</b><small>180k people</small></span>
+          <span className="impact-atlas__node impact-atlas__node--togo"><b>Togo</b><small>3.8k wells</small></span>
+        </div>
+      </section>
+
       {/* 2. Impact Counters Grid (Live Relational Records) */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
@@ -113,7 +135,7 @@ export const Impact: React.FC = () => {
           {impactMetrics.map(metric => (
             <div 
               key={metric.id}
-              className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all hover:border-slate-300 relative overflow-hidden group"
+              className="page-panel page-panel--interactive bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all hover:border-slate-300 relative overflow-hidden group"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -154,7 +176,7 @@ export const Impact: React.FC = () => {
             return (
               <div 
                 key={prog.id}
-                className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-sky-300 transition-all cursor-pointer group"
+                className="page-panel page-panel--interactive bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-sky-300 transition-all cursor-pointer group"
               >
                 <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600 mb-3 group-hover:scale-110 transition-transform">
                   <Icon className="w-5 h-5" />
@@ -189,7 +211,7 @@ export const Impact: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {FIELD_STORIES.map((story, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col">
+            <div key={i} className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col">
               <div className="relative aspect-video overflow-hidden">
                 <img 
                   src={story.image} 

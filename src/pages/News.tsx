@@ -11,7 +11,8 @@ import {
   Bell, 
   FileText, 
   CheckCircle2,
-  Clock
+  Clock,
+  Radio
 } from 'lucide-react';
 import { Post } from '../types';
 
@@ -48,7 +49,7 @@ export const News: React.FC = () => {
     <div className="space-y-8 max-w-6xl mx-auto animate-in fade-in duration-200">
       
       {/* Header Bar */}
-      <div className="bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="page-hero-panel page-hero-panel--news bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
@@ -76,7 +77,7 @@ export const News: React.FC = () => {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex items-center space-x-2 overflow-x-auto pb-1">
+      <div className="page-tabs flex items-center space-x-2 overflow-x-auto pb-1">
         {CATEGORIES.map(c => (
           <button
             key={c.id}
@@ -92,11 +93,26 @@ export const News: React.FC = () => {
         ))}
       </div>
 
+      {/* Newsroom wire */}
+      <section className="news-wire" aria-labelledby="news-wire-title">
+        <div className="news-wire__masthead">
+          <span className="news-wire__live"><Radio className="h-3.5 w-3.5" /> Newsroom wire</span>
+          <strong id="news-wire-title">What the organisation is saying now</strong>
+          <span className="news-wire__timestamp">Last bulletin synced 04 min ago</span>
+        </div>
+        <div className="news-wire__track" aria-hidden="true"><span /></div>
+        <div className="news-wire__items">
+          <div><span className="news-wire__index">01</span><p>Winter corridor phase 4 clears 28,450 thermal kits.</p><small>Emergency operations</small></div>
+          <div><span className="news-wire__index">02</span><p>100% donation policy reaffirmed across every field bureau.</p><small>Executive vision</small></div>
+          <div><span className="news-wire__index">03</span><p>New brand and safety resources are ready for every team.</p><small>People & culture</small></div>
+        </div>
+      </section>
+
       {/* Featured / Pinned Main Story */}
       {featuredNews && (
         <div 
           onClick={() => setActiveArticle(featuredNews)}
-          className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer grid grid-cols-1 lg:grid-cols-12 group"
+          className="page-panel page-panel--interactive bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer grid grid-cols-1 lg:grid-cols-12 group"
         >
           {featuredNews.cover_image && (
             <div className="lg:col-span-5 relative overflow-hidden bg-slate-900 min-h-[220px]">
@@ -164,7 +180,7 @@ export const News: React.FC = () => {
           <div
             key={item.id}
             onClick={() => setActiveArticle(item)}
-            className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
           >
             {item.cover_image && (
               <div className="aspect-video relative overflow-hidden bg-slate-100">

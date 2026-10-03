@@ -13,7 +13,7 @@ export const QuickToolkitWidget: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs space-y-4">
+    <div className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs space-y-4">
       
       {/* Header */}
       <div className="flex items-center justify-between border-b border-slate-100 pb-3">

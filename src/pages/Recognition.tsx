@@ -34,7 +34,7 @@ export const Recognition: React.FC = () => {
     <div className="space-y-8 max-w-6xl mx-auto animate-in fade-in duration-200">
       
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-amber-600 via-rose-600 to-[#0C2340] rounded-2xl p-6 sm:p-8 text-white border border-amber-400/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
+      <div className="page-hero-panel page-hero-panel--recognition bg-gradient-to-r from-amber-600 via-rose-600 to-[#0C2340] rounded-2xl p-6 sm:p-8 text-white border border-amber-400/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1.5 max-w-xl">
           <div className="flex items-center space-x-2">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-300"></span>
@@ -57,6 +57,24 @@ export const Recognition: React.FC = () => {
         </button>
       </div>
 
+      {/* Gratitude stage */}
+      <section className="recognition-stage" aria-labelledby="recognition-stage-title">
+        <div className="recognition-stage__copy">
+          <span className="recognition-stage__eyebrow">The gratitude current</span>
+          <h2 id="recognition-stage-title">Good work travels.</h2>
+          <p>Every note of appreciation becomes energy for the next mission. See who is carrying the spirit of One Team this week.</p>
+          <div className="recognition-stage__meter"><span /><small>68 recognitions shared this quarter</small></div>
+        </div>
+        <div className="recognition-stage__orbit" aria-hidden="true">
+          <span className="recognition-stage__ring recognition-stage__ring--one" />
+          <span className="recognition-stage__ring recognition-stage__ring--two" />
+          <span className="recognition-stage__spark recognition-stage__spark--one">✦</span>
+          <span className="recognition-stage__spark recognition-stage__spark--two">✧</span>
+          <span className="recognition-stage__spark recognition-stage__spark--three">✦</span>
+          <div className="recognition-stage__core"><Trophy className="h-5 w-5" /><strong>One Team</strong><small>in appreciation</small></div>
+        </div>
+      </section>
+
       {/* Grid: Recognition Feed (Left) & Kudos Leaderboard (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
@@ -71,7 +89,7 @@ export const Recognition: React.FC = () => {
           </div>
 
           {recognitionPosts.length === 0 ? (
-            <div className="p-12 text-center bg-white rounded-2xl border border-slate-200">
+            <div className="page-panel p-12 text-center bg-white rounded-2xl border border-slate-200">
               <Award className="w-12 h-12 text-amber-400 mx-auto mb-2" />
               <h3 className="font-bold text-sm text-slate-800">No Kudos Awarded Yet</h3>
               <p className="text-xs text-slate-500 mt-1">
@@ -95,7 +113,7 @@ export const Recognition: React.FC = () => {
         <div className="lg:col-span-4 space-y-6">
           
           {/* Recognition Badges Library */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
+          <div className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center space-x-2">
               <Award className="w-4 h-4 text-amber-500" />
               <span>MATW Recognition Badges</span>
@@ -140,7 +158,7 @@ export const Recognition: React.FC = () => {
           </div>
 
           {/* Quarterly Leaderboard */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
+          <div className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
               <div className="flex items-center space-x-2">
                 <Trophy className="w-4 h-4 text-amber-500" />

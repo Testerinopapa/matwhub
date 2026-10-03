@@ -75,10 +75,10 @@ export const OperationsHub: React.FC = () => {
     <div className="space-y-5">
       
       {/* 1. Integrated Operations Command Center */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
+      <div className="ops-shell bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
         
         {/* Hub Header & Segmented Controller */}
-        <div className="p-4 bg-[#0C2340] text-white border-b border-slate-800">
+        <div className="ops-shell__header p-4 text-white border-b border-slate-800">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -92,7 +92,7 @@ export const OperationsHub: React.FC = () => {
           </div>
 
           {/* Segment Tabs */}
-          <div className="grid grid-cols-4 gap-1 p-1 bg-slate-900/90 rounded-xl border border-slate-700/60 text-xs">
+          <div className="ops-segmented grid grid-cols-4 gap-1 p-1 rounded-xl text-xs">
             <button
               onClick={() => setActiveSegment('radar')}
               className={`py-1.5 px-2 rounded-lg font-semibold transition-all text-center truncate ${

@@ -16,7 +16,8 @@ import {
   Save, 
   CheckCircle2, 
   AlertCircle,
-  Eye
+  Eye,
+  Activity
 } from 'lucide-react';
 
 export const Admin: React.FC = () => {
@@ -40,7 +41,7 @@ export const Admin: React.FC = () => {
   // Permission guard
   if (currentRole === 'EMPLOYEE') {
     return (
-      <div className="max-w-2xl mx-auto p-12 bg-white rounded-3xl border border-rose-200 text-center space-y-4 shadow-sm">
+      <div className="page-panel page-panel--restricted max-w-2xl mx-auto p-12 bg-white rounded-3xl border border-rose-200 text-center space-y-4 shadow-sm">
         <div className="w-16 h-16 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mx-auto">
           <ShieldCheck className="w-8 h-8" />
         </div>
@@ -86,7 +87,7 @@ export const Admin: React.FC = () => {
     <div className="space-y-6 max-w-6xl mx-auto animate-in fade-in duration-200">
       
       {/* Top Banner */}
-      <div className="bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="page-hero-panel page-hero-panel--admin bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
@@ -111,6 +112,35 @@ export const Admin: React.FC = () => {
         </div>
       </div>
 
+      {/* Control room overview */}
+      <section className="admin-control-room" aria-labelledby="admin-control-title">
+        <div className="admin-control-room__heading">
+          <span className="admin-control-room__eyebrow"><Activity className="h-3.5 w-3.5" /> Control room / live</span>
+          <h2 id="admin-control-title">The platform is moving with the mission.</h2>
+          <p>Operational signals from the content, impact, and access layers.</p>
+        </div>
+        <div className="admin-control-room__status">
+          <div className="admin-control-room__status-visual" aria-hidden="true">
+            <span className="admin-control-room__status-orbit admin-control-room__status-orbit--one" />
+            <span className="admin-control-room__status-orbit admin-control-room__status-orbit--two" />
+            <span className="admin-control-room__status-beam" />
+            <i className="admin-control-room__status-core" />
+            <div className="admin-control-room__status-readout">
+              <small>Network health</small>
+              <strong>92%</strong>
+              <span>5 hubs online</span>
+            </div>
+          </div>
+          <div className="admin-control-room__status-line"><span className="admin-control-room__status-dot" /><strong>All systems nominal</strong><small>Last sync 22:14 UTC</small></div>
+          <div className="admin-control-room__bar"><span style={{ width: '92%' }} /><small>92%</small></div>
+        </div>
+        <div className="admin-control-room__metrics">
+          <span><small>Impact data</small><strong>Synced</strong><i /></span>
+          <span><small>Broadcast queue</small><strong>3 ready</strong><i /></span>
+          <span><small>Access layer</small><strong>Protected</strong><i /></span>
+        </div>
+      </section>
+
       {statusMessage && (
         <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-semibold text-emerald-800 flex items-center space-x-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
@@ -119,7 +149,7 @@ export const Admin: React.FC = () => {
       )}
 
       {/* Admin Navigation Tabs */}
-      <div className="flex items-center space-x-2 border-b border-slate-200 pb-2">
+      <div className="page-tabs flex items-center space-x-2 border-b border-slate-200 pb-2">
         {[
           { id: 'metrics', label: 'Live Impact Metrics', icon: BarChart2 },
           { id: 'posts', label: `Content & Posts (${posts.length})`, icon: FileText },
@@ -147,7 +177,7 @@ export const Admin: React.FC = () => {
 
       {/* 1. Impact Metrics CMS */}
       {activeAdminTab === 'metrics' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+        <div className="page-panel page-panel--admin bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h3 className="font-extrabold text-sm text-slate-900">Manage Production Impact Metrics</h3>
@@ -218,7 +248,7 @@ export const Admin: React.FC = () => {
 
       {/* 2. Content & Posts Manager */}
       {activeAdminTab === 'posts' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+        <div className="page-panel page-panel--admin bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h3 className="font-extrabold text-sm text-slate-900">All Published Content & Broadcasts</h3>
@@ -272,7 +302,7 @@ export const Admin: React.FC = () => {
 
       {/* 3. Events & RSVPs */}
       {activeAdminTab === 'events' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+        <div className="page-panel page-panel--admin bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h3 className="font-extrabold text-sm text-slate-900">Event Participation & Attendance</h3>
@@ -313,7 +343,7 @@ export const Admin: React.FC = () => {
 
       {/* 4. Staff Roles & Permissions */}
       {activeAdminTab === 'users' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+        <div className="page-panel page-panel--admin bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h3 className="font-extrabold text-sm text-slate-900">Staff Access & Security Permissions</h3>

@@ -31,7 +31,7 @@ export const UpcomingEventsWidget: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden">
+    <div className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden">
       
       {/* Widget Header */}
       <div className="p-4 bg-[#0C2340] text-white flex items-center justify-between">

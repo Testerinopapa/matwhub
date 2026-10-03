@@ -55,7 +55,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const badge = getTypeBadge();
 
   return (
-    <article className={`bg-white rounded-2xl border transition-all duration-200 shadow-2xs hover:border-slate-300 overflow-hidden ${
+    <article className={`post-card bg-white rounded-2xl border transition-all duration-200 shadow-2xs hover:border-slate-300 overflow-hidden ${
       post.pinned ? 'border-rose-300' : 'border-slate-200/90'
     }`}>
       {/* Pinned Announcement Bar */}
@@ -140,12 +140,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
         {/* Media Attachments Carousel / Photo */}
         {post.media_urls && post.media_urls.length > 0 && (
-          <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-900 relative">
+          <div className="post-card__media rounded-xl overflow-hidden border border-slate-200 bg-slate-900 relative">
             <img 
               src={post.media_urls[activeMediaIndex] || post.media_urls[0]} 
               alt={post.title} 
               className="w-full max-h-96 object-cover"
             />
+            <span className="post-card__media-glint" aria-hidden="true" />
             {post.media_urls.length > 1 && (
               <div className="absolute bottom-2 right-2 flex space-x-1.5 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
                 {post.media_urls.map((_, idx) => (

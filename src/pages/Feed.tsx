@@ -12,7 +12,8 @@ import {
   Flame, 
   Globe, 
   Award,
-  Pin
+  Pin,
+  Radio
 } from 'lucide-react';
 
 export const Feed: React.FC = () => {
@@ -37,7 +38,7 @@ export const Feed: React.FC = () => {
     <div className="space-y-6 max-w-5xl mx-auto animate-in fade-in duration-200">
       
       {/* Top Banner / Feed Header */}
-      <div className="bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="page-hero-panel page-hero-panel--feed bg-[#0C2340] rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
@@ -69,8 +70,39 @@ export const Feed: React.FC = () => {
         </div>
       </div>
 
+      {/* Live network pulse */}
+      <section className="feed-signal-board" aria-labelledby="feed-signal-title">
+        <div className="feed-signal-board__copy">
+          <div className="feed-signal-board__eyebrow">
+            <span className="feed-signal-board__live-dot" />
+            Live network pulse
+            <span>02 Oct 2026 / 22:14 UTC</span>
+          </div>
+          <h2 id="feed-signal-title">One team, in motion.</h2>
+          <p>Field notes, decisions, and moments of care moving across the MATW network right now.</p>
+          <div className="feed-signal-board__stats">
+            <span><strong>24</strong> countries active</span>
+            <span><strong>142</strong> missions in motion</span>
+            <span><strong>18</strong> frontline teams online</span>
+          </div>
+        </div>
+        <div className="feed-signal-board__radar" aria-hidden="true">
+          <span className="feed-signal-board__ring feed-signal-board__ring--one" />
+          <span className="feed-signal-board__ring feed-signal-board__ring--two" />
+          <span className="feed-signal-board__ring feed-signal-board__ring--three" />
+          <span className="feed-signal-board__sweep" />
+          <span className="feed-signal-board__point feed-signal-board__point--one" />
+          <span className="feed-signal-board__point feed-signal-board__point--two" />
+          <span className="feed-signal-board__point feed-signal-board__point--three" />
+          <span className="feed-signal-board__core"><Radio className="h-5 w-5" /></span>
+          <span className="feed-signal-board__label feed-signal-board__label--one">SYD</span>
+          <span className="feed-signal-board__label feed-signal-board__label--two">GZA</span>
+          <span className="feed-signal-board__label feed-signal-board__label--three">AMM</span>
+        </div>
+      </section>
+
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3">
+      <div className="page-panel page-panel--controls bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           
           {/* Post Type Filters */}
@@ -116,7 +148,7 @@ export const Feed: React.FC = () => {
       {/* Posts List */}
       <div className="space-y-5">
         {filteredPosts.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-500">
+          <div className="page-panel bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-500">
             <MessageSquare className="w-10 h-10 text-slate-300 mx-auto mb-2" />
             <p className="text-base font-bold text-slate-700">No matching posts found</p>
             <p className="text-xs text-slate-400 mt-1">Try clearing your search query or filters.</p>

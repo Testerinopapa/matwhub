@@ -14,7 +14,8 @@ import {
   ExternalLink,
   Filter,
   Sparkles,
-  CalendarDays
+  CalendarDays,
+  Radio
 } from 'lucide-react';
 
 export const Events: React.FC = () => {
@@ -59,11 +60,13 @@ export const Events: React.FC = () => {
     setCalendarDate(new Date(2026, 9, 1));
   };
 
+  const runwayEvent = filteredEvents[0] || events[0];
+
   return (
     <div className="space-y-6 max-w-6xl mx-auto animate-in fade-in duration-200">
       
       {/* Top Banner with MATW Mission Styling */}
-      <div className="bg-gradient-to-r from-[#07172B] via-[#0C2340] to-slate-900 rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md relative overflow-hidden">
+      <div className="page-hero-panel page-hero-panel--events bg-gradient-to-r from-[#07172B] via-[#0C2340] to-slate-900 rounded-2xl p-6 text-white border border-[#1b3a63] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10">
@@ -106,8 +109,31 @@ export const Events: React.FC = () => {
         </div>
       </div>
 
+      {/* Programming runway */}
+      <section className="events-runway" aria-labelledby="events-runway-title">
+        <div className="events-runway__header">
+          <div>
+            <span className="events-runway__eyebrow"><Radio className="h-3.5 w-3.5" /> Programming runway</span>
+            <h2 id="events-runway-title">The next moments that move us.</h2>
+          </div>
+          <span className="events-runway__clock">UTC / live schedule</span>
+        </div>
+        <div className="events-runway__line" aria-hidden="true">
+          <span className="events-runway__progress" />
+          <span className="events-runway__progress-beacon" />
+          <span className="events-runway__stop events-runway__stop--now"><i />Now<strong>Global network</strong></span>
+          <span className="events-runway__stop events-runway__stop--next"><i />Next<strong>{runwayEvent?.title || 'Team briefing'}</strong></span>
+          <span className="events-runway__stop events-runway__stop--later"><i />Later<strong>Monthly field review</strong></span>
+        </div>
+        <div className="events-runway__telemetry" aria-hidden="true">
+          <span><i /> Live route</span>
+          <span><i /> Global hubs</span>
+          <strong>{filteredEvents.length} moments tracked</strong>
+        </div>
+      </section>
+
       {/* Category Filter Tabs */}
-      <div className="flex items-center space-x-2 overflow-x-auto pb-1">
+      <div className="page-tabs flex items-center space-x-2 overflow-x-auto pb-1">
         {CATEGORIES.map(c => (
           <button
             key={c.id}
@@ -137,7 +163,7 @@ export const Events: React.FC = () => {
             return (
               <div
                 key={event.id}
-                className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group"
+                className="page-panel page-panel--interactive bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group"
               >
                 {/* Date & Details */}
                 <div className="flex items-start space-x-4 min-w-0">
@@ -241,7 +267,7 @@ export const Events: React.FC = () => {
         </div>
       ) : (
         /* Calendar Grid View - Fully Dynamic */
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+        <div className="page-panel bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
           
           {/* Calendar Header with Navigation Controls */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
