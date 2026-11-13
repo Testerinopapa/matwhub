@@ -89,7 +89,7 @@
 .matw-whatsapp-help-panel .matw-whatsapp-help-action:hover { border-color: #169e49; }
 .matw-whatsapp-help-panel .matw-whatsapp-help-label { display: block; margin-top: 16px; font-size: 14px; font-weight: 700; }
 .matw-whatsapp-help-number-row { display: flex; gap: 8px; margin-top: 5px; }
-.matw-whatsapp-help-number-row input {
+.matw-whatsapp-help-number-row .matw-whatsapp-number {
   flex: 1;
   min-width: 0;
   padding: 9px;
@@ -110,7 +110,6 @@
   cursor: pointer;
 }
 .matw-whatsapp-help-panel a:focus-visible,
-.matw-whatsapp-help-panel input:focus-visible,
 .matw-whatsapp-help-panel button:focus-visible { outline: 3px solid #e2005e; outline-offset: 2px; }
 .matw-whatsapp-help-copy-status { display: block; min-height: 18px; font-size: 13px; color: #17683a; }
 .matw-whatsapp-help-panel .matw-whatsapp-help-hint { margin: 4px 0 0; font-size: 14px; }
