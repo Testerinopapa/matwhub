@@ -1,7 +1,7 @@
 import "./matw-whatsapp-help.css";
 
-/** MATW Briefs already uses this public support number. Override per app if needed. */
-export const DEFAULT_MATW_WHATSAPP_NUMBER = "447951579147";
+/** Reuse the WhatsApp support number configured in MATW Programs. Override per app if needed. */
+export const DEFAULT_MATW_WHATSAPP_NUMBER = "5522997365871";
 
 function supportNumber(): string {
   const configured = import.meta.env.VITE_WHATSAPP_SUPPORT_NUMBER || DEFAULT_MATW_WHATSAPP_NUMBER;
