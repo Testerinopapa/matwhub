@@ -39,9 +39,8 @@ export function MatwWhatsAppHelp({ appName }: { appName: string }) {
         <p>Start a conversation with our WhatsApp support number.</p>
         <a className="matw-whatsapp-help-action matw-whatsapp-help-primary" href={appUrl}>Open in WhatsApp app</a>
         <a className="matw-whatsapp-help-action" href={webUrl} target="_blank" rel="noopener noreferrer">Open chat in WhatsApp Web</a>
-        <label htmlFor="matw-whatsapp-number" className="matw-whatsapp-help-label">Support number</label>
         <div className="matw-whatsapp-help-number-row">
-          <input id="matw-whatsapp-number" readOnly value={`+${phone}`} onFocus={(event) => event.currentTarget.select()} />
+          <span className="matw-whatsapp-number" aria-label="Support number">{`+${phone}`}</span>
           <button type="button" onClick={() => void copyNumber()}>Copy</button>
         </div>
         <span className="matw-whatsapp-help-copy-status" role="status">{copied ? "Number copied" : ""}</span>
