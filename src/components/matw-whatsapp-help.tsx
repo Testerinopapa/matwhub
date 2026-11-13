@@ -12,10 +12,19 @@ function supportNumber(): string {
 /** No API keys, QR codes or bot integration: opens a direct WhatsApp chat. */
 export function MatwWhatsAppHelp({ appName }: { appName: string }) {
   const message = encodeURIComponent(`Hello, I need help with MATW ${appName}.`);
+  const phone = supportNumber();
+  const desktopUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${message}`;
+  const mobileUrl = `https://wa.me/${phone}?text=${message}`;
   return (
     <a
       className="matw-whatsapp-help"
-      href={`https://wa.me/${supportNumber()}?text=${message}`}
+      href={desktopUrl}
+      onClick={(event) => {
+        // Desktop bypasses the api.whatsapp.com redirect, which some browsers block.
+        if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+          event.currentTarget.href = mobileUrl;
+        }
+      }}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contact MATW support on WhatsApp"
