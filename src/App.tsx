@@ -2,6 +2,7 @@ import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
+import { MatwWhatsAppHelp } from './components/matw-whatsapp-help';
 import { SearchModal } from './components/modals/SearchModal';
 import { CreatePostModal } from './components/modals/CreatePostModal';
 import { RecogniseModal } from './components/modals/RecogniseModal';
@@ -52,6 +53,7 @@ const MainContent: React.FC = () => {
         {renderActivePage()}
       </main>
       <Footer />
+      <MatwWhatsAppHelp appName="Hub" />
 
       {/* Global Modals */}
       <SearchModal />
