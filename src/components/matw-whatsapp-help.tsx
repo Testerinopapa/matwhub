@@ -1,7 +1,7 @@
 import "./matw-whatsapp-help.css";
 
 /** Confirmed MATW support contact. */
-export const DEFAULT_MATW_WHATSAPP_NUMBER = "5522997365871";
+export const DEFAULT_MATW_WHATSAPP_NUMBER = "447951579147";
 
 /** One direct link; no settings, popup, or phone-number field. */
 export function MatwWhatsAppHelp({ appName }: { appName: string }) {
